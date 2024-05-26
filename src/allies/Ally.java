@@ -19,11 +19,17 @@ public interface Ally {
   void adjustMoney(int adjustBy);
 
   /**
+   * @return the current amount of money this ally has
+   */
+  int currentMoney();
+
+  /**
    * Gets the damage type of the ally.
    *
    * @return Other.DamageType of ally
    */
   DamageType getDamageType();
+
   /**
    * Gets the damage type of the ally.
    *
