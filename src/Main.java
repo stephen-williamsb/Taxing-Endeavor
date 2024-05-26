@@ -8,6 +8,7 @@ public class Main {
     GameManager manager = new GameManager();
     Richarch rich = new Richarch(manager);
     rich.startTurn();
+    manager.printPartyCheck();
   }
 
 }

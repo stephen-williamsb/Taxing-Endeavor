@@ -1,6 +1,7 @@
 package allies;
 
 import Other.DamageType;
+import Other.MoveQuitOrFailed;
 
 public interface Ally {
 
@@ -9,7 +10,7 @@ public interface Ally {
    *
    * @param actionNumber the number for the action.
    */
-  void actions(int actionNumber);
+  void actions(int actionNumber) throws MoveQuitOrFailed;
 
   /**
    * Adjusts the allies health by the adjustBy value.
