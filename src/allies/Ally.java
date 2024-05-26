@@ -24,4 +24,10 @@ public interface Ally {
    * @return Other.DamageType of ally
    */
   DamageType getDamageType();
+  /**
+   * Gets the damage type of the ally.
+   *
+   * @return Other.DamageType of ally
+   */
+  AllyClass getAllyType();
 }

@@ -7,9 +7,9 @@ public interface Enemy {
   /**
    * Makes the enemies.Enemy perform the action on the numbered slot.
    *
-   * @param actionNumber the number for the action.
+   *
    */
-  void actions(int actionNumber);
+  void act();
 
   /**
    * Adjusts the Enemies health by the adjustBy value.
@@ -24,4 +24,11 @@ public interface Enemy {
    * @return Other.DamageType of enemies.Enemy
    */
   DamageType getDamageType();
+
+  /**
+   * Checks to see if the enemy still lives
+   *
+   * @return true if enemy live, false if enemy is dead;
+   */
+  boolean isAlive();
 }

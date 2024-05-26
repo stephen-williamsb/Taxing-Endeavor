@@ -1,5 +1,5 @@
 package Other;
 
 public enum DamageType {
-  Emotional, Logic, Blackmail
+  Emotional, Logic, Blackmail, None
 }
