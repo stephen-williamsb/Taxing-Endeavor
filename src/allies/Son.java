@@ -1,11 +1,12 @@
 package allies;
 
-import other.DamageType;
-import other.MoveQuitOrFailed;
+import gameManagement.Billion;
+import gameManagement.DamageType;
+import gameManagement.MoveQuitOrFailed;
 
 public class Son implements Ally {
 
-  public Son(int startCash) {
+  public Son(Billion startCash) {
 
   }
 
@@ -25,8 +26,8 @@ public class Son implements Ally {
   }
 
   @Override
-  public int currentMoney() {
-    return 0;
+  public Billion currentMoney() {
+    return new Billion(0);
   }
 
   @Override

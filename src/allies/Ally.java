@@ -1,7 +1,8 @@
 package allies;
 
-import other.DamageType;
-import other.MoveQuitOrFailed;
+import gameManagement.Billion;
+import gameManagement.DamageType;
+import gameManagement.MoveQuitOrFailed;
 
 public interface Ally {
 
@@ -27,7 +28,7 @@ public interface Ally {
   /**
    * @return the current amount of money this ally has
    */
-  int currentMoney();
+  Billion currentMoney();
 
   /**
    * Gets the damage type of the ally.

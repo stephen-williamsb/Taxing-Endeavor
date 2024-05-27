@@ -1,11 +1,12 @@
 package allies;
 
-import other.DamageType;
-import other.MoveQuitOrFailed;
+import gameManagement.Billion;
+import gameManagement.DamageType;
+import gameManagement.MoveQuitOrFailed;
 
 public class Advisor implements Ally {
 
-  public Advisor(int startCash) {
+  public Advisor(Billion startCash) {
 
   }
 
@@ -25,8 +26,8 @@ public class Advisor implements Ally {
   }
 
   @Override
-  public int currentMoney() {
-    return 0;
+  public Billion currentMoney() {
+    return new Billion(0);
   }
 
   @Override

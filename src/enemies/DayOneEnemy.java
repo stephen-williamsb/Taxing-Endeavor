@@ -1,7 +1,7 @@
 package enemies;
 
-import other.DamageType;
-import other.GameManager;
+import gameManagement.DamageType;
+import gameManagement.GameManager;
 
 public class DayOneEnemy implements Enemy{
   private GameManager manager;

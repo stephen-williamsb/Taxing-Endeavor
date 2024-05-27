@@ -1,20 +1,20 @@
 package allies;
 
+import gameManagement.Billion;
+import gameManagement.DamageType;
+import gameManagement.GameManager;
+import gameManagement.MoveQuitOrFailed;
 import java.util.Random;
 import java.util.Scanner;
-import other.DamageType;
-import other.GameManager;
-import other.MoveQuitOrFailed;
 
 public class Richarch implements Ally {
 
-  private final int CashPerDay = 10000000;
   private final GameManager manager;
   Scanner scanner;
-  private int cashOnHand;
+  private Billion cashOnHand;
 
-  public Richarch(GameManager manager) {
-    cashOnHand = 13000000;
+  public Richarch(Billion startCash, GameManager manager) {
+    cashOnHand = startCash;
     this.manager = manager;
     scanner = new Scanner(System.in);
   }
@@ -79,14 +79,14 @@ public class Richarch implements Ally {
 
   @Override
   public void adjustMoney(int adjustBy) {
-    cashOnHand += adjustBy;
-    if (cashOnHand <= 0) {
+    cashOnHand.add(adjustBy);
+    if (cashOnHand.getCash() <= 0) {
       throw new IllegalStateException("Game Over! How in the world did you lose?!");
     }
   }
 
   @Override
-  public int currentMoney() {
+  public Billion currentMoney() {
     return cashOnHand;
   }
 
@@ -149,12 +149,13 @@ public class Richarch implements Ally {
     System.out.println("How much money? : ");
     userAnswer = getUserIn();
     int amountTransfered = Integer.parseInt(userAnswer);
-    while (cashOnHand - amountTransfered < 0 || amountTransfered < 0) {
+    while (cashOnHand.getCash() - amountTransfered < 0 || amountTransfered < 0) {
       System.out.println("Invalid amount. How much money? : ");
       userAnswer = getUserIn();
       amountTransfered = Integer.parseInt(userAnswer);
     }
-    cashOnHand -= amountTransfered;
+    cashOnHand.sub(amountTransfered);
+    ;
     amountTransfered = (int) (amountTransfered * (.75 + (.15 * countFinancialAdvisors())));
     currentAlly.adjustMoney(amountTransfered);
 
@@ -193,9 +194,9 @@ public class Richarch implements Ally {
     }
 
     //Handle cost
-    int hireCost = 0;
+    double hireCost = 0;
     while (rerolls >= 0) {
-      hireCost = rand.nextInt(1000000) + 1000000;
+      hireCost = (rand.nextInt(10) + 10) / 10.0;
       System.out.println(
           summonedAlly + " wants to be hired for $" + hireCost + ". You have " + rerolls
               + " rerolls left, type 'reroll' to reroll. Type 'accept' to hire.");
@@ -205,11 +206,11 @@ public class Richarch implements Ally {
       }
       rerolls--;
     }
-    if (cashOnHand - hireCost < 0) {
+    if (cashOnHand.getCash() - hireCost < 0) {
       System.out.println("insufficient payment");
       return;
     }
-    cashOnHand -= hireCost;
-    manager.createAlly(summonedAlly, hireCost);
+    cashOnHand.sub(hireCost);
+    manager.createAlly(summonedAlly, new Billion(hireCost));
   }
 }

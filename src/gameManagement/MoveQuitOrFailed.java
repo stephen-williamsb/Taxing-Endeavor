@@ -1,4 +1,4 @@
-package other;
+package gameManagement;
 
 public class MoveQuitOrFailed extends Exception {
 

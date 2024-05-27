@@ -1,6 +1,6 @@
 package enemies;
 
-import other.DamageType;
+import gameManagement.DamageType;
 
 public interface Enemy {
 

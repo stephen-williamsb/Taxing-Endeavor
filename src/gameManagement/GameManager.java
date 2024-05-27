@@ -1,4 +1,4 @@
-package other;
+package gameManagement;
 
 import allies.Advisor;
 import allies.Ally;
@@ -9,6 +9,7 @@ import allies.Secretary;
 import allies.Son;
 import enemies.DayOneEnemy;
 import enemies.Enemy;
+import gameManagement.commands.CommandHandler;
 
 
 public class GameManager {
@@ -16,13 +17,16 @@ public class GameManager {
   private Ally[] allyParty;
   private Enemy currentFoe;
   private int day;
-  private final int richarchDailyGains = 10000000;
+  private CommandHandler commandHandler;
+  private final Billion richarchStartCash = new Billion(4);
+  private final Billion richarchDailyGains = new Billion(10);
 
 
   public GameManager() {
+    commandHandler = new CommandHandler();
     day = 1;
     allyParty = new Ally[4];
-    allyParty[0] = new Richarch(this);
+    allyParty[0] = new Richarch(richarchStartCash, this);
     StartGame();
   }
 
@@ -39,20 +43,21 @@ public class GameManager {
     introText();
     firstDayText();
     allyParty[0].startTurn();
+    day++;
   }
 
   public Ally getAllyAt(int pos) {
     return allyParty[pos - 1];
   }
 
-  public void createAlly(AllyClass ally, int startCash) {
+  public void createAlly(AllyClass ally, Billion startCash) {
     Ally allyCreated;
     switch (ally) {
       case Son -> allyCreated = new Son(startCash);
       case Secretary -> allyCreated = new Secretary(startCash);
       case Lawyer -> allyCreated = new Lawyer(startCash);
       case Advisor -> allyCreated = new Advisor(startCash);
-      default -> allyCreated = new Richarch(this);
+      default -> allyCreated = new Richarch(new Billion(-1000), this);
     }
 
     for (int i = 1; i < allyParty.length; i++) {
