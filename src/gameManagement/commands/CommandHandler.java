@@ -26,6 +26,7 @@ public class CommandHandler {
     for (TextCommand command : textCommandList) {
       stringBuilder.append(command.getName()).append("\n");
     }
+    stringBuilder.append("/party\n/partycheck\n");
     textCommandList.add(new TextCommand("/info", stringBuilder.toString()));
     textCommandList.add(new TextCommand("/info help", stringBuilder.toString()));
   }

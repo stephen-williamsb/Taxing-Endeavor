@@ -19,6 +19,11 @@ public class Richarch implements Ally {
     scanner = new Scanner(System.in);
   }
 
+  @Override
+  public void intro() {
+
+  }
+
   public void startTurn() {
     while (true) {
       System.out.println("It is now Richarch's Turn! You have $" + cashOnHand + " cash on hand. You"

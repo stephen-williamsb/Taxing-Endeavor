@@ -11,6 +11,11 @@ public class Advisor implements Ally {
   }
 
   @Override
+  public void intro() {
+
+  }
+
+  @Override
   public void startTurn() {
 
   }

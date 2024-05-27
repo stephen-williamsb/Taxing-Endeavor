@@ -7,6 +7,10 @@ import gameManagement.MoveQuitOrFailed;
 public interface Ally {
 
   /**
+   * Introduces the current ally and their abilities
+   */
+  void intro();
+  /**
    * Starts the turn of this ally
    */
   void startTurn();

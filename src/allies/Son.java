@@ -11,6 +11,11 @@ public class Son implements Ally {
   }
 
   @Override
+  public void intro() {
+
+  }
+
+  @Override
   public void startTurn() {
 
   }
