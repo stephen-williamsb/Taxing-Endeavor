@@ -9,6 +9,7 @@ public class Main {
     Richarch rich = new Richarch(manager);
     rich.startTurn();
     manager.printPartyCheck();
+    System.out.println(rich.currentMoney());
   }
 
 }

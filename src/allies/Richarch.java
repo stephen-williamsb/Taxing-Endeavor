@@ -179,6 +179,7 @@ public class Richarch implements Ally {
            [1]Son
            [2]Lawyer
            [3]Secretary
+           [4]Advisor
            \s""");
       userAnswer = getUserIn();
 
@@ -205,6 +206,7 @@ public class Richarch implements Ally {
       System.out.println("insufficient payment");
       return;
     }
+    cashOnHand -= hireCost;
     manager.createAlly(summonedAlly, hireCost);
   }
 }

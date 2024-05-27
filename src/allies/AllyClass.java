@@ -1,5 +1,8 @@
 package allies;
 
 public enum AllyClass {
-  Richarch, Son, Lawyer, Secretary
+  Richarch("Richarch"), Son("Son"), Lawyer("Lawyer"), Secretary("Secretary"), Advisor("Advisor");
+
+  AllyClass(String name) {
+  }
 }
