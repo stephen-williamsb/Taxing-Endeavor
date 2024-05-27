@@ -12,12 +12,14 @@ public class Lawyer implements Ally {
 
   @Override
   public void intro() {
-
-  }
-
-  @Override
-  public void startTurn() {
-
+    System.out.println("It is now The Lawyer's Turn! The Laywer may perform the following "
+        + "actions:");
+    System.out.println(
+        "[1] Pay raise");
+    System.out.println(
+        "[2] Summon ally");
+    System.out.println("[3] Discharge");
+    System.out.println("To select a move type the number: ");
   }
 
   @Override

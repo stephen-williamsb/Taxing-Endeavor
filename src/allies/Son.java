@@ -15,10 +15,6 @@ public class Son implements Ally {
 
   }
 
-  @Override
-  public void startTurn() {
-
-  }
 
   @Override
   public void actions(int actionNumber) throws MoveQuitOrFailed {

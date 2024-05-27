@@ -1,9 +1,15 @@
 package allies;
 
+import static gameManagement.GameManager.getUserInWithQuit;
+
+import allies.actions.PayRaise;
+import allies.actions.action;
 import gameManagement.Billion;
 import gameManagement.DamageType;
 import gameManagement.GameManager;
 import gameManagement.MoveQuitOrFailed;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -12,72 +18,46 @@ public class Richarch implements Ally {
   private final GameManager manager;
   Scanner scanner;
   private final Billion cashOnHand;
+  private List<action> actions;
 
   public Richarch(Billion startCash, GameManager manager) {
     cashOnHand = startCash;
     this.manager = manager;
     scanner = new Scanner(System.in);
+    actions = new ArrayList<>();
+    actions.add(new PayRaise());
   }
 
   @Override
   public void intro() {
-
-  }
-
-  public void startTurn() {
-    while (true) {
-      System.out.println("It is now Richarch's Turn! You have $" + cashOnHand + " cash on hand. You"
-          + " can do the following:");
-      System.out.println(
-          "[1] Pay raise: remove money from Richarch’s pocket and add 75% of it to an ally. For each "
-              + "Financial Advisor ally in play, add 15% to that. (note: this can make it go over "
-              + "100%) ");
-      System.out.println(
-          "[2] Summon ally: Richarch calls an ally and sends them to the front of his "
-              + "driveway. The ally will haggle a random price between 1 and 2 million. You can choose to"
-              + " reroll this once, plus 1 more time per Financial Advisor in play. ");
-      System.out.println("[3] [move 3] ");
-      System.out.println("[4] [move 4] ");
-      System.out.println("[5] Check Ally's: Gives you the current list of allies and their current "
-          + "cash (This does not use the turn)");
-      System.out.print("To select a move type the number: ");
-      String userAnswer = scanner.nextLine();
-      System.out.println();
-      try {
-        actions(Integer.parseInt(userAnswer));
-        return;
-      } catch (Exception e) {
-        continue;
-      }
-    }
-
+    System.out.println("It is now Richarch's Turn! You have " + cashOnHand + " cash on hand. You"
+        + " can do the following:");
+    System.out.println(
+        "[1] Pay raise");
+    System.out.println(
+        "[2] Summon ally");
+    System.out.println("[3] Discharge");
+    System.out.println("To select a move type the number: ");
   }
 
   @Override
   public void actions(int actionNumber) throws MoveQuitOrFailed {
     switch (actionNumber) {
-      case 1:
+      case 1 -> {
         handlePayRaise();
         System.out.println();
-        break;
-      case 2:
+      }
+      case 2 -> {
         handleSummonAlly();
         System.out.println();
-        break;
-      case 3:
-        System.out.println("User chose: " + actionNumber + "... This action has not been assigned");
-        break;
-      case 4:
-        System.out.println("User chose: " + actionNumber + "... This action has not been assigned");
-        break;
-      case 5:
-        manager.printPartyCheck();
-        System.out.println();
-        startTurn();
-        break;
-      default:
-        throw new IllegalArgumentException(
+      }
+      case 3 -> System.out.println(
+          "User chose: " + actionNumber + "... This action has not been assigned");
+      default -> {
+        System.out.println("No action of that value.");
+        throw new MoveQuitOrFailed(
             "There is no action that has the number " + actionNumber);
+      }
     }
 
   }
@@ -110,58 +90,17 @@ public class Richarch implements Ally {
     return AllyClass.Richarch;
   }
 
-  private int countFinancialAdvisors() {
-    Ally[] allies = manager.fetchAllyParty();
-    int advisors = 0;
-    for (int i = 1; i < allies.length; i++) {
-      if (allies[i] == null) {
-        continue;
-      }
-      if (allies[i].getAllyType() == AllyClass.Secretary) {
-        advisors++;
-      }
-    }
-    return advisors;
-  }
+
 
   private void checkForQuit(String input) throws MoveQuitOrFailed {
-    if (input.equalsIgnoreCase("q") || input.equalsIgnoreCase("quit")) {
-      System.out.println("\nQuitting current action\n");
-      throw new MoveQuitOrFailed("Quit or q was typed");
-    }
+
   }
 
-  private String getUserIn() throws MoveQuitOrFailed {
-    String userAnswer = scanner.nextLine();
-    checkForQuit(userAnswer);
-    return userAnswer;
-  }
+
   //Move set
 
   private void handlePayRaise() throws MoveQuitOrFailed {
-    Ally currentAlly = null;
-    String userAnswer;
-    while (currentAlly == null || currentAlly.getAllyType() == AllyClass.Richarch) {
-      System.out.println("Which ally? : ");
-      manager.printPartyAsOptions();
-      userAnswer = getUserIn();
-      currentAlly = manager.getAllyAt(Integer.parseInt(userAnswer));
-      if (currentAlly.getAllyType() == AllyClass.Richarch) {
-        System.out.println("Cannot choose self");
-      }
-    }
 
-    System.out.println("How much money? : ");
-    userAnswer = getUserIn();
-    int amountTransfered = Integer.parseInt(userAnswer);
-    while (cashOnHand.getCash() - amountTransfered < 0 || amountTransfered < 0) {
-      System.out.println("Invalid amount. How much money? : ");
-      userAnswer = getUserIn();
-      amountTransfered = Integer.parseInt(userAnswer);
-    }
-    cashOnHand.sub(amountTransfered);
-    amountTransfered = (int) (amountTransfered * (.75 + (.15 * countFinancialAdvisors())));
-    currentAlly.adjustMoney(new Billion(amountTransfered));
 
   }
 
@@ -176,7 +115,7 @@ public class Richarch implements Ally {
     String userAnswer = "";
 
     //Calculate rerolls
-    int rerolls = 1 + countFinancialAdvisors();
+    int rerolls = 1 + manager.countFinancialAdvisors();
     AllyClass summonedAlly = null;
     while (summonedAlly == null) {
       System.out.println("""
@@ -186,7 +125,7 @@ public class Richarch implements Ally {
            [3]Secretary
            [4]Advisor
            \s""");
-      userAnswer = getUserIn();
+      userAnswer = getUserInWithQuit();
 
       summonedAlly = switch (Integer.parseInt(userAnswer)) {
         case 1 -> AllyClass.Son;

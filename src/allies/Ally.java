@@ -10,10 +10,7 @@ public interface Ally {
    * Introduces the current ally and their abilities
    */
   void intro();
-  /**
-   * Starts the turn of this ally
-   */
-  void startTurn();
+
 
   /**
    * Makes the ally perform the action on the numbered slot.

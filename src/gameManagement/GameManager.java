@@ -56,8 +56,13 @@ public class GameManager {
     System.out.println("The Battle Begins! ");
     int currentPartMember = 0;
     while (currentFoe.isAlive()) {
+      if (allyParty[currentPartMember] == null || currentPartMember == 5) {
+        currentFoe.act();
+        currentPartMember = 0;
+        continue;
+      }
       try {
-        //allyParty[currentPartMember].introduce();
+        allyParty[currentPartMember].intro();
         int actionNum = 0;
         try {
           actionNum = Integer.parseInt(handleInput());
@@ -67,6 +72,7 @@ public class GameManager {
         }
         allyParty[currentPartMember].actions(actionNum);
         printPartyCheck();
+        currentPartMember++;
       } catch (MoveQuitOrFailed ignored) {
       }
     }
@@ -163,6 +169,33 @@ public class GameManager {
     } catch (Exception ignored) {
     }
   }
+
+  public static String getUserInWithQuit() throws MoveQuitOrFailed {
+    Scanner scanner = new Scanner(System.in);
+    String userAnswer = scanner.nextLine();
+    if (userAnswer.equalsIgnoreCase("q") || userAnswer.equalsIgnoreCase("quit")) {
+      System.out.println("\nQuitting current action\n");
+      throw new MoveQuitOrFailed("Quit or q was typed");
+    }
+    return userAnswer;
+  }
+
+  public int countFinancialAdvisors() {
+    Ally[] allies = fetchAllyParty();
+    int advisors = 0;
+    for (int i = 1; i < allies.length; i++) {
+      if (allies[i] == null) {
+        continue;
+      }
+      if (allies[i].getAllyType() == AllyClass.Secretary) {
+        advisors++;
+      }
+    }
+    return advisors;
+  }
+
+  //Text blocks beyond this point!!
+
 
   private void introText() {
     System.out.print(
