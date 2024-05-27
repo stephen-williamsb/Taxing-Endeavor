@@ -1,17 +1,17 @@
 package allies;
 
-import Other.DamageType;
-import Other.GameManager;
-import Other.MoveQuitOrFailed;
 import java.util.Random;
 import java.util.Scanner;
+import other.DamageType;
+import other.GameManager;
+import other.MoveQuitOrFailed;
 
 public class Richarch implements Ally {
 
   private final int CashPerDay = 10000000;
-  private int cashOnHand;
   private final GameManager manager;
   Scanner scanner;
+  private int cashOnHand;
 
   public Richarch(GameManager manager) {
     cashOnHand = 13000000;
@@ -41,7 +41,7 @@ public class Richarch implements Ally {
       try {
         actions(Integer.parseInt(userAnswer));
         return;
-      } catch (MoveQuitOrFailed e) {
+      } catch (Exception e) {
         continue;
       }
     }
@@ -120,7 +120,7 @@ public class Richarch implements Ally {
   }
 
   private void checkForQuit(String input) throws MoveQuitOrFailed {
-    if (input.toLowerCase().equals("q") || input.toLowerCase().equals("quit")) {
+    if (input.equalsIgnoreCase("q") || input.equalsIgnoreCase("quit")) {
       System.out.println("\nQuitting current action\n");
       throw new MoveQuitOrFailed("Quit or q was typed");
     }
@@ -187,9 +187,12 @@ public class Richarch implements Ally {
         case 1 -> AllyClass.Son;
         case 2 -> AllyClass.Lawyer;
         case 3 -> AllyClass.Secretary;
+        case 4 -> AllyClass.Advisor;
         default -> null;
       };
     }
+
+    //Handle cost
     int hireCost = 0;
     while (rerolls >= 0) {
       hireCost = rand.nextInt(1000000) + 1000000;

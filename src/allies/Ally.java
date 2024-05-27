@@ -1,9 +1,14 @@
 package allies;
 
-import Other.DamageType;
-import Other.MoveQuitOrFailed;
+import other.DamageType;
+import other.MoveQuitOrFailed;
 
 public interface Ally {
+
+  /**
+   * Starts the turn of this ally
+   */
+  void startTurn();
 
   /**
    * Makes the ally perform the action on the numbered slot.

@@ -1,9 +1,18 @@
 package allies;
 
-import Other.DamageType;
-import Other.MoveQuitOrFailed;
+import other.DamageType;
+import other.MoveQuitOrFailed;
 
-public class Lawyer implements Ally{
+public class Lawyer implements Ally {
+
+  public Lawyer(int startCash) {
+
+  }
+
+  @Override
+  public void startTurn() {
+
+  }
 
   @Override
   public void actions(int actionNumber) throws MoveQuitOrFailed {
