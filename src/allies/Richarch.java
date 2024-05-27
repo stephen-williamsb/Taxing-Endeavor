@@ -11,7 +11,7 @@ public class Richarch implements Ally {
 
   private final GameManager manager;
   Scanner scanner;
-  private Billion cashOnHand;
+  private final Billion cashOnHand;
 
   public Richarch(Billion startCash, GameManager manager) {
     cashOnHand = startCash;
@@ -78,7 +78,7 @@ public class Richarch implements Ally {
   }
 
   @Override
-  public void adjustMoney(int adjustBy) {
+  public void adjustMoney(Billion adjustBy) {
     cashOnHand.add(adjustBy);
     if (cashOnHand.getCash() <= 0) {
       throw new IllegalStateException("Game Over! How in the world did you lose?!");
@@ -155,9 +155,8 @@ public class Richarch implements Ally {
       amountTransfered = Integer.parseInt(userAnswer);
     }
     cashOnHand.sub(amountTransfered);
-    ;
     amountTransfered = (int) (amountTransfered * (.75 + (.15 * countFinancialAdvisors())));
-    currentAlly.adjustMoney(amountTransfered);
+    currentAlly.adjustMoney(new Billion(amountTransfered));
 
   }
 
@@ -196,7 +195,7 @@ public class Richarch implements Ally {
     //Handle cost
     double hireCost = 0;
     while (rerolls >= 0) {
-      hireCost = (rand.nextInt(10) + 10) / 10.0;
+      hireCost = (rand.nextInt(10) + 10.0) / 10.0;
       System.out.println(
           summonedAlly + " wants to be hired for $" + hireCost + ". You have " + rerolls
               + " rerolls left, type 'reroll' to reroll. Type 'accept' to hire.");

@@ -23,7 +23,8 @@ public interface Ally {
    *
    * @param adjustBy the amount of money to be adjusted.
    */
-  void adjustMoney(int adjustBy);
+  void adjustMoney(Billion adjustBy);
+
 
   /**
    * @return the current amount of money this ally has

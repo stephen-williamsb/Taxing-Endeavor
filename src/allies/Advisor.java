@@ -21,7 +21,7 @@ public class Advisor implements Ally {
   }
 
   @Override
-  public void adjustMoney(int adjustBy) {
+  public void adjustMoney(Billion adjustBy) {
 
   }
 
