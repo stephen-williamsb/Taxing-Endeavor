@@ -1,12 +1,14 @@
-package allies;
+package allies.allytypes;
 
+import allies.Ally;
+import allies.AllyClass;
 import gameManagement.Billion;
 import gameManagement.DamageType;
 import gameManagement.MoveQuitOrFailed;
 
-public class Son implements Ally {
+public class Advisor implements Ally {
 
-  public Son(Billion startCash) {
+  public Advisor(Billion startCash) {
 
   }
 
@@ -16,8 +18,9 @@ public class Son implements Ally {
   }
 
 
+
   @Override
-  public void actions(int actionNumber) throws MoveQuitOrFailed {
+  public void actions(String actionNumber) throws MoveQuitOrFailed {
 
   }
 
@@ -38,6 +41,6 @@ public class Son implements Ally {
 
   @Override
   public AllyClass getAllyType() {
-    return AllyClass.Son;
+    return AllyClass.Advisor;
   }
 }

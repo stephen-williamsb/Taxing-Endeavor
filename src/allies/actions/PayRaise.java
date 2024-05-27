@@ -9,20 +9,21 @@ import gameManagement.Billion;
 import gameManagement.GameManager;
 import gameManagement.MoveQuitOrFailed;
 
-public class PayRaise implements action{
+public class PayRaise implements Action {
 
+  private Ally target;
   @Override
   public String getName() {
     return "Pay Raise";
   }
 
   @Override
-  public String getFlavorText(Ally user, String target) {
-    return user.getAllyType() + " has increased the pay of " + target + ".";
+  public String getFlavorText(Ally user) {
+    return user.getAllyType() + " has increased the pay of " + target.getAllyType() + ".";
   }
 
   @Override
-  public void act(GameManager manager, Ally self, Enemy enemy) throws MoveQuitOrFailed {
+  public void act(GameManager manager, Ally self) throws MoveQuitOrFailed {
     Ally currentAlly = null;
     String userAnswer;
     while (currentAlly == null || currentAlly.getAllyType() == AllyClass.Richarch) {
@@ -44,6 +45,7 @@ public class PayRaise implements action{
     }
     self.currentMoney().sub(amountTransfered);
     amountTransfered = (int) (amountTransfered * (.75 + (.15 * manager.countFinancialAdvisors())));
+    target = currentAlly;
     currentAlly.adjustMoney(new Billion(amountTransfered));
   }
 

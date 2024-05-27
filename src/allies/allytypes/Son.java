@@ -1,12 +1,14 @@
-package allies;
+package allies.allytypes;
 
+import allies.Ally;
+import allies.AllyClass;
 import gameManagement.Billion;
 import gameManagement.DamageType;
 import gameManagement.MoveQuitOrFailed;
 
-public class Secretary implements Ally {
+public class Son implements Ally {
 
-  public Secretary(Billion startCash) {
+  public Son(Billion startCash) {
 
   }
 
@@ -16,9 +18,8 @@ public class Secretary implements Ally {
   }
 
 
-
   @Override
-  public void actions(int actionNumber) throws MoveQuitOrFailed {
+  public void actions(String actionNumber) throws MoveQuitOrFailed {
 
   }
 
@@ -39,6 +40,6 @@ public class Secretary implements Ally {
 
   @Override
   public AllyClass getAllyType() {
-    return AllyClass.Secretary;
+    return AllyClass.Son;
   }
 }

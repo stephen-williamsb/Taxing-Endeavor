@@ -1,9 +1,11 @@
-package allies;
+package allies.allytypes;
 
 import static gameManagement.GameManager.getUserInWithQuit;
 
+import allies.Ally;
+import allies.AllyClass;
+import allies.actions.Action;
 import allies.actions.PayRaise;
-import allies.actions.action;
 import gameManagement.Billion;
 import gameManagement.DamageType;
 import gameManagement.GameManager;
@@ -18,7 +20,7 @@ public class Richarch implements Ally {
   private final GameManager manager;
   Scanner scanner;
   private final Billion cashOnHand;
-  private List<action> actions;
+  private List<Action> actions;
 
   public Richarch(Billion startCash, GameManager manager) {
     cashOnHand = startCash;
@@ -32,33 +34,23 @@ public class Richarch implements Ally {
   public void intro() {
     System.out.println("It is now Richarch's Turn! You have " + cashOnHand + " cash on hand. You"
         + " can do the following:");
-    System.out.println(
-        "[1] Pay raise");
-    System.out.println(
-        "[2] Summon ally");
-    System.out.println("[3] Discharge");
-    System.out.println("To select a move type the number: ");
+    for (int i = 0; i < actions.size(); i++) {
+      System.out.println("[" + i + "]: " + actions.get(i).getName());
+    }
+    System.out.println("To select a move type the name of the move: ");
   }
 
   @Override
-  public void actions(int actionNumber) throws MoveQuitOrFailed {
-    switch (actionNumber) {
-      case 1 -> {
-        handlePayRaise();
-        System.out.println();
-      }
-      case 2 -> {
-        handleSummonAlly();
-        System.out.println();
-      }
-      case 3 -> System.out.println(
-          "User chose: " + actionNumber + "... This action has not been assigned");
-      default -> {
-        System.out.println("No action of that value.");
-        throw new MoveQuitOrFailed(
-            "There is no action that has the number " + actionNumber);
+  public void actions(String actionName) throws MoveQuitOrFailed {
+    for (Action action : actions) {
+      if (action.getName().equalsIgnoreCase(actionName)) {
+        action.act(manager, this);
+        action.getFlavorText(this);
+        return;
       }
     }
+    throw new MoveQuitOrFailed(
+        "There is no action that has the name " + actionName);
 
   }
 
@@ -91,16 +83,13 @@ public class Richarch implements Ally {
   }
 
 
-
   private void checkForQuit(String input) throws MoveQuitOrFailed {
 
   }
 
-
   //Move set
 
   private void handlePayRaise() throws MoveQuitOrFailed {
-
 
   }
 

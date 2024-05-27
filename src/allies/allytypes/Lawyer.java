@@ -1,5 +1,7 @@
-package allies;
+package allies.allytypes;
 
+import allies.Ally;
+import allies.AllyClass;
 import gameManagement.Billion;
 import gameManagement.DamageType;
 import gameManagement.MoveQuitOrFailed;
@@ -23,7 +25,7 @@ public class Lawyer implements Ally {
   }
 
   @Override
-  public void actions(int actionNumber) throws MoveQuitOrFailed {
+  public void actions(String actionNumber) throws MoveQuitOrFailed {
 
   }
 

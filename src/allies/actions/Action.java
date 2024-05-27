@@ -1,11 +1,10 @@
 package allies.actions;
 
 import allies.Ally;
-import enemies.Enemy;
 import gameManagement.GameManager;
 import gameManagement.MoveQuitOrFailed;
 
-public interface action {
+public interface Action {
 
   /**
    * Get the name of the current action
@@ -20,12 +19,12 @@ public interface action {
    *
    * @return the flavor text of the action.
    */
-  String getFlavorText(Ally user, String target);
+  String getFlavorText(Ally user);
 
   /**
    * The action that is performed such as damage, healing or other effects.
    *
    * @param manager the thing the action is performed on.
    */
-  void act(GameManager manager, Ally self, Enemy enemy) throws MoveQuitOrFailed;
+  void act(GameManager manager, Ally self) throws MoveQuitOrFailed;
 }

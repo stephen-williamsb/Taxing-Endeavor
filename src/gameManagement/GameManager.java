@@ -1,12 +1,12 @@
 package gameManagement;
 
-import allies.Advisor;
 import allies.Ally;
 import allies.AllyClass;
-import allies.Lawyer;
-import allies.Richarch;
-import allies.Secretary;
-import allies.Son;
+import allies.allytypes.Advisor;
+import allies.allytypes.Lawyer;
+import allies.allytypes.Richarch;
+import allies.allytypes.Secretary;
+import allies.allytypes.Son;
 import enemies.DayOneEnemy;
 import enemies.Enemy;
 import gameManagement.commands.CommandHandler;
@@ -63,14 +63,7 @@ public class GameManager {
       }
       try {
         allyParty[currentPartMember].intro();
-        int actionNum = 0;
-        try {
-          actionNum = Integer.parseInt(handleInput());
-        } catch (IllegalArgumentException e) {
-          System.out.println("Invalid input");
-          throw new MoveQuitOrFailed("Invalid number");
-        }
-        allyParty[currentPartMember].actions(actionNum);
+        allyParty[currentPartMember].actions(handleInput());
         printPartyCheck();
         currentPartMember++;
       } catch (MoveQuitOrFailed ignored) {
