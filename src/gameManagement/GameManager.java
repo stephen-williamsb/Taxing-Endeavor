@@ -137,9 +137,9 @@ public class GameManager {
   public void createAlly(AllyClass ally, Billion startCash) {
     Ally allyCreated;
     switch (ally) {
-      case Son -> allyCreated = new Son(startCash);
-      case Secretary -> allyCreated = new Secretary(startCash);
-      case Lawyer -> allyCreated = new Lawyer(startCash);
+      case Son -> allyCreated = new Son(startCash, this);
+      case Secretary -> allyCreated = new Secretary(startCash, this);
+      case Lawyer -> allyCreated = new Lawyer(startCash, this);
       case Advisor -> allyCreated = new Advisor(startCash, this);
       default -> allyCreated = new Richarch(new Billion(-1000), this);
     }

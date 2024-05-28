@@ -2,45 +2,23 @@ package allies.allytypes;
 
 import allies.Ally;
 import allies.AllyClass;
+import allies.actions.Action;
+import allies.actions.Discharge;
 import gameManagement.Billion;
 import gameManagement.DamageType;
+import gameManagement.GameManager;
 import gameManagement.MoveQuitOrFailed;
+import java.util.ArrayList;
 
-public class Son implements Ally {
+public class Son extends templateClass {
 
-  public Son(Billion startCash) {
+  public Son(Billion startCash, GameManager manager) {
+    super(startCash, manager, "\nThe son wants icecream and promotes the family buisness! ",
+        AllyClass.Lawyer);
 
-  }
+    ArrayList<Action> actions = new ArrayList<>();
+    actions.add(new Discharge());
 
-  @Override
-  public void intro() {
-
-  }
-
-
-  @Override
-  public void actions(String actionNumber) throws MoveQuitOrFailed {
-
-  }
-
-  @Override
-  public void adjustMoney(Billion adjustBy) {
-
-  }
-
-  @Override
-  public Billion currentMoney() {
-    return new Billion(0);
-  }
-
-  @Override
-  public Billion maxCash() {
-    return null;
-  }
-
-
-  @Override
-  public AllyClass getAllyType() {
-    return AllyClass.Son;
+    this.setActions(actions);
   }
 }
