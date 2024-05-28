@@ -72,6 +72,9 @@ public abstract class templateClass implements Ally {
       System.out.println(this.getType() + " has fled due to lack of cash.");
       manager.dismissAlly(this);
     }
+    if (currentCash.getCash() > maxCash.getCash()) {
+      currentCash = new Billion(maxCash.getCash());
+    }
   }
 
   @Override

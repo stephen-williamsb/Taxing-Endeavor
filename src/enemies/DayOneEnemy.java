@@ -40,14 +40,17 @@ public class DayOneEnemy implements Enemy {
   public void act() {
     Random rand = new Random();
     Ally[] allyParty = manager.fetchAllyParty();
-    Ally target;
+    Ally target = null;
     if (manager.allyCount() == 1) {
       target = allyParty[0];
       System.out.println("target locked!");
     } else if (this.target != null) {
       target = this.target;
     } else {
-      target = allyParty[rand.nextInt(1, manager.allyCount())];
+      while (target == null) {
+        target = allyParty[rand.nextInt(1, 4)];
+      }
+
     }
 
     currentDamage.add(new Billion(damageTaken * 0.0006));
