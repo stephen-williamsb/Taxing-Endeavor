@@ -114,7 +114,6 @@ public class CommandHandler {
         return true;
       }
     }
-    System.out.println(input + " not found in list");
     return false;
   }
 }
