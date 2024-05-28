@@ -73,6 +73,11 @@ public class Richarch implements Ally {
     return cashOnHand;
   }
 
+  @Override
+  public Billion maxCash() {
+    return new Billion(Double.POSITIVE_INFINITY);
+  }
+
   /**
    * Richarch does not deal damage
    *

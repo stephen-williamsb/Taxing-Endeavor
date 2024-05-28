@@ -33,6 +33,11 @@ public interface Ally {
   Billion currentMoney();
 
   /**
+   * @return the max amount of money this can have
+   */
+  Billion maxCash();
+
+  /**
    * Gets the damage type of the ally.
    *
    * @return Other.DamageType of ally

@@ -33,8 +33,6 @@ public class GameManager {
     allyParty = new Ally[4];
     Billion richarchStartCash = new Billion(4);
     allyParty[0] = new Richarch(richarchStartCash, this);
-
-    StartGame();
   }
 
   private Enemy GetFoeAtDay(int day) {
@@ -107,9 +105,30 @@ public class GameManager {
   public static double numHelper(double num) {
     Random rand = new Random();
     num = num * rand.nextDouble(.95, 1.05);
+    return round(num);
+  }
+
+  public static double round(double num) {
+    Random rand = new Random();
     BigDecimal bd = new BigDecimal(Double.toString(num));
     bd = bd.setScale(2, RoundingMode.HALF_UP);
     return bd.doubleValue();
+  }
+
+  public void dismissAlly(Ally ally) {
+    double happinessCalc = 0;
+    for (int i = 0; i < allyParty.length; i++) {
+      if (ally == allyParty[i]) {
+        happinessCalc = (ally.maxCash().getCash() / 2) - ally.currentMoney().getCash() * -2;
+        System.out.println(ally + " was dismissed and gave a happiness rating of " + happinessCalc
+            + " on a scale of -2 to 2");
+        allyHappiness += happinessCalc;
+        //clear slot
+        allyParty[i] = null;
+        return;
+      }
+    }
+    System.out.println(ally.getAllyType() + " was not found.");
   }
 
   public void createAlly(AllyClass ally, Billion startCash) {
