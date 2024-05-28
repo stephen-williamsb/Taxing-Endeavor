@@ -14,7 +14,7 @@ public class DayOneEnemy implements Enemy {
   //when this hit 4 the weakness and strength is randomized.
   private int turnsTillSwap;
   private DamageType[] damageList = {DamageType.Logic, DamageType.Emotional,
-      DamageType.Threatening};
+      DamageType.Blackmail};
   private DamageType strongAgainst;
   private DamageType weakAgainst;
   private Billion defaultDamage;

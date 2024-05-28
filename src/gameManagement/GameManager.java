@@ -12,6 +12,7 @@ import enemies.Enemy;
 import gameManagement.commands.CommandHandler;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -25,6 +26,7 @@ public class GameManager {
   private final Billion richarchDailyGains = new Billion(10);
   private final Scanner scanner;
   private double allyHappiness = 0;
+  private ArrayList<DamageType> boostedDamage;
 
   public GameManager() {
     scanner = new Scanner(System.in);
@@ -33,6 +35,7 @@ public class GameManager {
     allyParty = new Ally[4];
     Billion richarchStartCash = new Billion(4);
     allyParty[0] = new Richarch(richarchStartCash, this);
+    boostedDamage = new ArrayList<>();
   }
 
   private Enemy GetFoeAtDay(int day) {
@@ -67,6 +70,7 @@ public class GameManager {
       if (allyParty[currentPartMember] == null || currentPartMember == 4) {
         currentFoe.act();
         currentPartMember = 0;
+        printPartyCheck();
         continue;
       }
       try {
@@ -194,6 +198,7 @@ public class GameManager {
   }
 
   public void printPartyCheck() {
+    System.out.println();
     for (int i = 0; i < allyParty.length; i++) {
       if (allyParty[i] == null) {
         System.out.println("[" + (i + 1) + "]: empty");
@@ -235,6 +240,26 @@ public class GameManager {
       }
     }
     return advisors;
+  }
+
+  public void boostDamage(DamageType type) {
+    if (boostedDamage.contains(type)) {
+      System.out.println(type + " damage is already boosted...");
+      return;
+    }
+    boostedDamage.add(type);
+  }
+
+  /**
+   * Deals damage to the current foe
+   */
+  public void dealDamage(int amount, DamageType type) {
+    int currentAmount = amount;
+    if (boostedDamage.contains(type)) {
+      currentAmount *= 2;
+    }
+
+    currentFoe.adjustSanity(currentAmount, type);
   }
 
   //Text blocks beyond this point!!
