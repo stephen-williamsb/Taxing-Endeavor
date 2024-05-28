@@ -1,13 +1,12 @@
 package enemies;
 
+import allies.Ally;
 import gameManagement.DamageType;
 
 public interface Enemy {
 
   /**
    * Makes the enemies.Enemy perform the action on the numbered slot.
-   *
-   *
    */
   void act();
 
@@ -24,6 +23,7 @@ public interface Enemy {
    * @return Other.DamageType of enemies.Enemy
    */
   DamageType getStrength();
+
   /**
    * Gets the damage type of the enemies.Enemy.
    *
@@ -37,4 +37,6 @@ public interface Enemy {
    * @return true if enemy live, false if enemy is dead;
    */
   boolean isAlive();
+
+  void forcetarget(Ally target);
 }

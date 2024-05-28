@@ -15,13 +15,14 @@ public class DayOneEnemy implements Enemy {
   private int sanity;
   //when this hit 4 the weakness and strength is randomized.
   private int turnsTillSwap;
-  private DamageType[] damageList = {DamageType.Logic, DamageType.Emotional,
+  private final DamageType[] damageList = {DamageType.Logic, DamageType.Emotional,
       DamageType.Blackmail};
   private DamageType strongAgainst;
   private DamageType weakAgainst;
   private Billion defaultDamage;
   private Billion currentDamage;
   private int damageTaken;
+  private Ally target;
 
 
   public DayOneEnemy(GameManager manager) {
@@ -34,6 +35,7 @@ public class DayOneEnemy implements Enemy {
     damageTaken = 0;
   }
 
+
   @Override
   public void act() {
     Random rand = new Random();
@@ -42,6 +44,8 @@ public class DayOneEnemy implements Enemy {
     if (manager.allyCount() == 1) {
       target = allyParty[0];
       System.out.println("target locked!");
+    } else if (this.target != null) {
+      target = this.target;
     } else {
       target = allyParty[rand.nextInt(1, manager.allyCount())];
     }
@@ -55,6 +59,7 @@ public class DayOneEnemy implements Enemy {
     target.adjustMoney(new Billion(currentDamage.getCash() * -1));
     damageTaken = 0;
     currentDamage = new Billion(defaultDamage.getCash());
+    this.target = null;
   }
 
   @Override
@@ -105,5 +110,9 @@ public class DayOneEnemy implements Enemy {
         weakAgainst = current;
       }
     }
+  }
+
+  public void forcetarget(Ally target) {
+    this.target = target;
   }
 }
