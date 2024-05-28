@@ -30,7 +30,10 @@ public class CreatingMoney implements Action {
     moneyGiven = new Billion(percentIncrease);
     Ally[] party = manager.fetchAllyParty();
     for (int i = 0; i < manager.allyCount(); i++) {
-      party[i].adjustMoney(moneyGiven);
+      if (party[i] != null) {
+        party[i].adjustMoney(moneyGiven);
+      }
+
     }
   }
 }
