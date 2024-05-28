@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class CommandHandler {
 
-  private ArrayList<TextCommand> textCommandList;
+  private final ArrayList<TextCommand> textCommandList;
 
   public CommandHandler() {
     textCommandList = new ArrayList<>();

@@ -31,7 +31,7 @@ public class Richarch implements Ally {
 
   @Override
   public void intro() {
-    System.out.println("It is now Richarch's Turn! You have " + cashOnHand + " cash on hand. You"
+    System.out.println("\nIt is now Richarch's Turn! You have " + cashOnHand + " cash on hand. You"
         + " can do the following:");
     for (int i = 0; i < actions.size(); i++) {
       System.out.println("[" + (i + 1) + "]: " + actions.get(i).getName());
@@ -41,8 +41,15 @@ public class Richarch implements Ally {
 
   @Override
   public void actions(String actionName) throws MoveQuitOrFailed {
+    int actionNameAsNum = -1;
+    try {
+      actionNameAsNum = Integer.parseInt(actionName);
+      actionNameAsNum--;
+    } catch (Exception ignored) {
+    }
     for (Action action : actions) {
-      if (action.getName().equalsIgnoreCase(actionName)) {
+      if (action.getName().equalsIgnoreCase(actionName)
+          || actions.indexOf(action) == actionNameAsNum) {
         action.act(manager, this);
         action.getFlavorText(this);
         return;

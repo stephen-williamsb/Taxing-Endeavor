@@ -10,6 +10,9 @@ import allies.allytypes.Son;
 import enemies.DayOneEnemy;
 import enemies.Enemy;
 import gameManagement.commands.CommandHandler;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+import java.util.Random;
 import java.util.Scanner;
 
 
@@ -21,6 +24,7 @@ public class GameManager {
   private final CommandHandler commandHandler;
   private final Billion richarchDailyGains = new Billion(10);
   private final Scanner scanner;
+  private double allyHappiness = 0;
 
   public GameManager() {
     scanner = new Scanner(System.in);
@@ -94,6 +98,18 @@ public class GameManager {
 
   public Ally getAllyAt(int pos) {
     return allyParty[pos - 1];
+  }
+
+  public double getAllyHappiness() {
+    return allyHappiness;
+  }
+
+  public static double numHelper(double num) {
+    Random rand = new Random();
+    num = num * rand.nextDouble(.95, 1.05);
+    BigDecimal bd = new BigDecimal(Double.toString(num));
+    bd = bd.setScale(2, RoundingMode.HALF_UP);
+    return bd.doubleValue();
   }
 
   public void createAlly(AllyClass ally, Billion startCash) {
@@ -180,7 +196,7 @@ public class GameManager {
       if (allies[i] == null) {
         continue;
       }
-      if (allies[i].getAllyType() == AllyClass.Secretary) {
+      if (allies[i].getAllyType() == AllyClass.Advisor) {
         advisors++;
       }
     }
