@@ -1,7 +1,6 @@
 package allies;
 
 import gameManagement.Billion;
-import gameManagement.DamageType;
 import gameManagement.MoveQuitOrFailed;
 
 public interface Ally {
@@ -37,12 +36,6 @@ public interface Ally {
    */
   Billion maxCash();
 
-  /**
-   * Gets the damage type of the ally.
-   *
-   * @return Other.DamageType of ally
-   */
-  DamageType getDamageType();
 
   /**
    * Gets the damage type of the ally.

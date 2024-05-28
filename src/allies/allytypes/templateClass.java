@@ -3,9 +3,6 @@ package allies.allytypes;
 import allies.Ally;
 import allies.AllyClass;
 import allies.actions.Action;
-import allies.actions.Discharge;
-import allies.actions.PayRaise;
-import allies.actions.SummonAlly;
 import gameManagement.Billion;
 import gameManagement.GameManager;
 import gameManagement.MoveQuitOrFailed;
@@ -13,27 +10,34 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-public class Richarch implements Ally {
+public abstract class templateClass implements Ally {
 
   private final GameManager manager;
   Scanner scanner;
-  private final Billion cashOnHand;
-  private final List<Action> actions;
+  private final Billion maxCash;
+  private Billion currentCash;
+  private final String introText;
+  private List<Action> actions;
+  private final AllyClass thisAllyClass;
 
-  public Richarch(Billion startCash, GameManager manager) {
-    cashOnHand = startCash;
+
+  public templateClass(Billion maxCash, GameManager manager,
+      String introText, AllyClass allyClass) {
+    this.maxCash = maxCash;
+    currentCash = maxCash;
     this.manager = manager;
     scanner = new Scanner(System.in);
-    actions = new ArrayList<>();
-    actions.add(new PayRaise());
-    actions.add(new SummonAlly());
-    actions.add(new Discharge());
+    this.introText = introText;
+    thisAllyClass = allyClass;
+  }
+
+  protected void setActions(ArrayList<Action> providedActions) {
+    actions = providedActions;
   }
 
   @Override
   public void intro() {
-    System.out.println("\nIt is now Richarch's Turn! You have " + cashOnHand + " cash on hand. You"
-        + " can do the following:");
+    System.out.println(introText);
     for (int i = 0; i < actions.size(); i++) {
       System.out.println("[" + (i + 1) + "]: " + actions.get(i).getName());
     }
@@ -56,32 +60,33 @@ public class Richarch implements Ally {
         return;
       }
     }
-    throw new MoveQuitOrFailed(
-        "There is no action that has the name " + actionName);
+    throw new MoveQuitOrFailed("There is no action that has the name " + actionName);
 
   }
 
   @Override
   public void adjustMoney(Billion adjustBy) {
-    cashOnHand.add(adjustBy);
-    if (cashOnHand.getCash() <= 0) {
-      throw new IllegalStateException("Game Over! How in the world did you lose?!");
+    maxCash.add(adjustBy);
+    if (maxCash.getCash() <= 0) {
+      System.out.println(this.getAllyType() + " has fled due to lack of cash.");
+      manager.dismissAlly(this);
     }
   }
 
   @Override
   public Billion currentMoney() {
-    return cashOnHand;
+    return currentCash;
   }
 
   @Override
   public Billion maxCash() {
-    return new Billion(Double.POSITIVE_INFINITY);
+    return maxCash;
   }
 
 
   @Override
   public AllyClass getAllyType() {
-    return AllyClass.Richarch;
+    return thisAllyClass;
   }
 }
+

@@ -1,54 +1,22 @@
 package allies.allytypes;
 
-import allies.Ally;
 import allies.AllyClass;
+import allies.actions.Action;
+import allies.actions.Discharge;
 import gameManagement.Billion;
-import gameManagement.DamageType;
-import gameManagement.MoveQuitOrFailed;
+import gameManagement.GameManager;
+import java.util.ArrayList;
 
-public class Advisor implements Ally {
+public class Advisor extends templateClass {
 
-  final Billion maxCash;
-  Billion currentCash;
+  public Advisor(Billion startCash, GameManager manager) {
+    super(startCash, manager, "\nThe Advisor arrives to the scene! ", AllyClass.Lawyer);
 
-  public Advisor(Billion startCash) {
-    maxCash = startCash;
-    currentCash = maxCash;
-  }
+    ArrayList<Action> actions = new ArrayList<>();
+    actions.add(new Discharge());
 
-  @Override
-  public void intro() {
-
+    this.setActions(actions);
   }
 
 
-  @Override
-  public void actions(String actionNumber) throws MoveQuitOrFailed {
-
-  }
-
-  @Override
-  public void adjustMoney(Billion adjustBy) {
-
-  }
-
-  @Override
-  public Billion currentMoney() {
-    return currentCash;
-  }
-
-  @Override
-  public Billion maxCash() {
-    return maxCash;
-  }
-
-  @Override
-  public DamageType getDamageType() {
-    return null;
-  }
-
-  @Override
-  public AllyClass getAllyType() {
-    return AllyClass.Advisor;
-  }
 }

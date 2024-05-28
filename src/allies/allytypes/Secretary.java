@@ -39,10 +39,7 @@ public class Secretary implements Ally {
     return null;
   }
 
-  @Override
-  public DamageType getDamageType() {
-    return null;
-  }
+
 
   @Override
   public AllyClass getAllyType() {

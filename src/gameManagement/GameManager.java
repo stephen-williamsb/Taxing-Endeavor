@@ -140,7 +140,7 @@ public class GameManager {
       case Son -> allyCreated = new Son(startCash);
       case Secretary -> allyCreated = new Secretary(startCash);
       case Lawyer -> allyCreated = new Lawyer(startCash);
-      case Advisor -> allyCreated = new Advisor(startCash);
+      case Advisor -> allyCreated = new Advisor(startCash, this);
       default -> allyCreated = new Richarch(new Billion(-1000), this);
     }
 
