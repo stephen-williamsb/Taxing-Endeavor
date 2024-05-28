@@ -16,14 +16,20 @@ public interface Enemy {
    *
    * @param adjustBy the amount of money to be adjusted.
    */
-  void adjustSanity(int adjustBy);
+  void adjustSanity(int adjustBy, DamageType damageType);
 
   /**
    * Gets the damage type of the enemies.Enemy.
    *
    * @return Other.DamageType of enemies.Enemy
    */
-  DamageType getDamageType();
+  DamageType getStrength();
+  /**
+   * Gets the damage type of the enemies.Enemy.
+   *
+   * @return Other.DamageType of enemies.Enemy
+   */
+  DamageType getWeakness();
 
   /**
    * Checks to see if the enemy still lives

@@ -23,7 +23,7 @@ public class SummonAlly implements Action {
 
   @Override
   public String getFlavorText(Ally user) {
-    return user.getAllyType() + " hired a new helping hand! " + ally + " has 'willingly' joined "
+    return user.getType() + " hired a new helping hand! " + ally + " has 'willingly' joined "
         + "the team";
   }
 

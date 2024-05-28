@@ -81,7 +81,7 @@ public class Richarch implements Ally {
 
 
   @Override
-  public AllyClass getAllyType() {
+  public AllyClass getType() {
     return AllyClass.Richarch;
   }
 }

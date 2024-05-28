@@ -19,24 +19,24 @@ public class PayRaise implements Action {
 
   @Override
   public String getFlavorText(Ally user) {
-    return user.getAllyType() + " has increased the pay of " + target.getAllyType() + ".";
+    return user.getType() + " has increased the pay of " + target.getType() + ".";
   }
 
   @Override
   public void act(GameManager manager, Ally self) throws MoveQuitOrFailed {
     Ally currentAlly = null;
     String userAnswer;
-    while (currentAlly == null || currentAlly.getAllyType() == AllyClass.Richarch) {
+    while (currentAlly == null || currentAlly.getType() == AllyClass.Richarch) {
       System.out.println("Which ally? : ");
       manager.printPartyAsOptions();
       userAnswer = getUserInWithQuit();
       currentAlly = manager.getAllyAt(Integer.parseInt(userAnswer));
-      if (currentAlly.getAllyType() == AllyClass.Richarch) {
+      if (currentAlly.getType() == AllyClass.Richarch) {
         System.out.println("Cannot choose self");
       }
     }
     System.out.println(
-        currentAlly.getAllyType() + " will be payed half their max pay which is "
+        currentAlly.getType() + " will be payed half their max pay which is "
             + currentAlly.maxCash().getCash() / 2
             + " . Excess "
             + "will be lost. Type q or quit to stop any other keys will accept the payment.");

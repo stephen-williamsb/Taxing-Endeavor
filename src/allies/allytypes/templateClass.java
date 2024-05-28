@@ -17,14 +17,14 @@ public abstract class templateClass implements Ally {
   private final String introText;
   private final AllyClass thisAllyClass;
   Scanner scanner;
-  private final Billion currentCash;
+  private Billion currentCash;
   private List<Action> actions;
 
 
   public templateClass(Billion maxCash, GameManager manager,
       String introText, AllyClass allyClass) {
     this.maxCash = maxCash;
-    currentCash = maxCash;
+    currentCash = new Billion(maxCash.getCash());
     this.manager = manager;
     scanner = new Scanner(System.in);
     this.introText = introText;
@@ -66,9 +66,10 @@ public abstract class templateClass implements Ally {
 
   @Override
   public void adjustMoney(Billion adjustBy) {
-    maxCash.add(adjustBy);
-    if (maxCash.getCash() <= 0) {
-      System.out.println(this.getAllyType() + " has fled due to lack of cash.");
+    currentCash.add(adjustBy);
+    if (currentCash.getCash() <= 0) {
+      currentCash = new Billion(0);
+      System.out.println(this.getType() + " has fled due to lack of cash.");
       manager.dismissAlly(this);
     }
   }
@@ -85,7 +86,7 @@ public abstract class templateClass implements Ally {
 
 
   @Override
-  public AllyClass getAllyType() {
+  public AllyClass getType() {
     return thisAllyClass;
   }
 }

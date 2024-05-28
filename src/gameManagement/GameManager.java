@@ -93,6 +93,9 @@ public class GameManager {
       pressEnterToContinue();
       throw new MoveQuitOrFailed("/info command given, return user to menu");
     }
+    if (userinput.equalsIgnoreCase("/happiness")) {
+      System.out.println("Current happiness: " + allyHappiness);
+    }
     if (userinput.equalsIgnoreCase("/partycheck") || userinput.equalsIgnoreCase("/party")) {
       printPartyCheck();
       pressEnterToContinue();
@@ -130,10 +133,9 @@ public class GameManager {
     for (int i = 0; i < allyParty.length; i++) {
       if (ally == allyParty[i]) {
         happinessCalc =
-            ((ally.maxCash().getCash() / 2) - ally.currentMoney().getCash()) / ally.maxCash()
-                .getCash() * -4;
+            (ally.currentMoney().getCash() / ally.maxCash().getCash()) * 4 - 2;
         System.out.println(
-            ally.getAllyType() + " was dismissed and gave a happiness rating of " + happinessCalc
+            ally.getType() + " was dismissed and gave a happiness rating of " + happinessCalc
                 + " on a scale of -2 to 2");
         allyHappiness += happinessCalc;
         //clear slot
@@ -141,7 +143,7 @@ public class GameManager {
         return;
       }
     }
-    System.out.println(ally.getAllyType() + " was not found.");
+    System.out.println(ally.getType() + " was not found.");
   }
 
   public void createAlly(AllyClass ally, Billion startCash) {
@@ -187,7 +189,7 @@ public class GameManager {
         System.out.println("[" + (i + 1) + "]: empty");
         continue;
       }
-      System.out.println("[" + (i + 1) + "]: " + allyParty[i].getAllyType());
+      System.out.println("[" + (i + 1) + "]: " + allyParty[i].getType());
     }
   }
 
@@ -198,7 +200,7 @@ public class GameManager {
         continue;
       }
       System.out.println(
-          "[" + (i + 1) + "]: " + allyParty[i].getAllyType() + "   |   Current " + "cash: "
+          "[" + (i + 1) + "]: " + allyParty[i].getType() + "   |   Current " + "cash: "
               + allyParty[i].currentMoney());
     }
   }
@@ -228,7 +230,7 @@ public class GameManager {
       if (allies[i] == null) {
         continue;
       }
-      if (allies[i].getAllyType() == AllyClass.Advisor) {
+      if (allies[i].getType() == AllyClass.Advisor) {
         advisors++;
       }
     }

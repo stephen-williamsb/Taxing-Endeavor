@@ -42,5 +42,5 @@ public interface Ally {
    *
    * @return Other.DamageType of ally
    */
-  AllyClass getAllyType();
+  AllyClass getType();
 }

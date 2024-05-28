@@ -16,19 +16,19 @@ public class Discharge implements Action {
 
   @Override
   public String getFlavorText(Ally user) {
-    return user.getAllyType() + " has discharged an ally!";
+    return user.getType() + " has discharged an ally!";
   }
 
   @Override
   public void act(GameManager manager, Ally self) throws MoveQuitOrFailed {
     Ally currentAlly = null;
     String userAnswer;
-    while (currentAlly == null || currentAlly.getAllyType() == AllyClass.Richarch) {
+    while (currentAlly == null || currentAlly.getType() == AllyClass.Richarch) {
       System.out.println("Which ally would you like to fire? : ");
       manager.printPartyAsOptions();
       userAnswer = getUserInWithQuit();
       currentAlly = manager.getAllyAt(Integer.parseInt(userAnswer));
-      if (currentAlly.getAllyType() == AllyClass.Richarch) {
+      if (currentAlly.getType() == AllyClass.Richarch) {
         System.out.println("Cannot choose self");
       }
     }
