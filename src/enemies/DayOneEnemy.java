@@ -23,7 +23,7 @@ public class DayOneEnemy implements Enemy {
   private Billion currentDamage;
   private int damageTaken;
   private Ally target;
-  private final double damageReduction = 0.00006;
+  private final double damageReduction = 0.0006;
 
   public DayOneEnemy(GameManager manager) {
     determineRandomTyping();
