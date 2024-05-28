@@ -13,12 +13,12 @@ import java.util.Scanner;
 public abstract class templateClass implements Ally {
 
   private final GameManager manager;
-  Scanner scanner;
   private final Billion maxCash;
-  private Billion currentCash;
   private final String introText;
-  private List<Action> actions;
   private final AllyClass thisAllyClass;
+  Scanner scanner;
+  private final Billion currentCash;
+  private List<Action> actions;
 
 
   public templateClass(Billion maxCash, GameManager manager,

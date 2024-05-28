@@ -10,7 +10,7 @@ import java.util.ArrayList;
 public class Advisor extends templateClass {
 
   public Advisor(Billion startCash, GameManager manager) {
-    super(startCash, manager, "\nThe Advisor arrives to the scene! ", AllyClass.Lawyer);
+    super(startCash, manager, "\nThe Advisor arrives to the scene! ", AllyClass.Advisor);
 
     ArrayList<Action> actions = new ArrayList<>();
     actions.add(new Discharge());

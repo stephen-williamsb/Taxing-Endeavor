@@ -16,9 +16,9 @@ import java.util.Scanner;
 public class Richarch implements Ally {
 
   private final GameManager manager;
-  Scanner scanner;
   private final Billion cashOnHand;
   private final List<Action> actions;
+  Scanner scanner;
 
   public Richarch(Billion startCash, GameManager manager) {
     cashOnHand = startCash;

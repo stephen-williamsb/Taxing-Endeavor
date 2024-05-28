@@ -1,13 +1,10 @@
 package allies.allytypes;
 
-import allies.Ally;
 import allies.AllyClass;
 import allies.actions.Action;
 import allies.actions.Discharge;
 import gameManagement.Billion;
-import gameManagement.DamageType;
 import gameManagement.GameManager;
-import gameManagement.MoveQuitOrFailed;
 import java.util.ArrayList;
 
 public class Lawyer extends templateClass {
