@@ -41,4 +41,6 @@ public interface Enemy {
   void forcetarget(Ally target);
 
   int getSanity();
+
+  String getName();
 }

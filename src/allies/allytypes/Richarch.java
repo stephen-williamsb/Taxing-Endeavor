@@ -28,6 +28,7 @@ public class Richarch implements Ally {
     actions.add(new PayRaise());
     actions.add(new SummonAlly());
     actions.add(new Discharge());
+
   }
 
   @Override

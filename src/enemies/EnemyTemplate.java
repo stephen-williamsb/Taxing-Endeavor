@@ -12,19 +12,19 @@ public abstract class EnemyTemplate implements Enemy {
 
   private final GameManager manager;
   private final String name;
+  private final DamageType[] damageList = {DamageType.Logic, DamageType.Emotional,
+      DamageType.Blackmail};
   private int sanity;
   //when this hit 4 the weakness and strength is randomized.
   private int turnsTillSwap;
   private int defaultTurnsTillSwap;
-  private final DamageType[] damageList = {DamageType.Logic, DamageType.Emotional,
-      DamageType.Blackmail};
   private DamageType strongAgainst;
   private DamageType weakAgainst;
-  private Billion defaultDamage;
+  private final Billion defaultDamage;
   private Billion currentDamage;
   private int damageTaken;
   private Ally target;
-  private double damageReduction;
+  private final double damageReduction;
 
   public EnemyTemplate(GameManager manager, String name, int sanity, int turnsTillSwap,
       Billion defaultDamage, double damageReduction) {
@@ -130,6 +130,11 @@ public abstract class EnemyTemplate implements Enemy {
 
   @Override
   public String toString() {
-    return name + ", moral: " + getSanity();
+    return name + ", Current Sanity: " + getSanity();
+  }
+
+  @Override
+  public String getName() {
+    return name;
   }
 }

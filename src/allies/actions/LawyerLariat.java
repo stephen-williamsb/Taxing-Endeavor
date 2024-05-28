@@ -8,9 +8,9 @@ import java.util.Random;
 
 public class LawyerLariat implements Action {
 
-  private DamageType damageType = DamageType.Neutral;
   final DamageType[] damageList = {DamageType.Logic, DamageType.Emotional,
       DamageType.Blackmail, DamageType.Neutral};
+  private DamageType damageType = DamageType.Neutral;
 
   @Override
   public String getName() {

@@ -22,13 +22,13 @@ import java.util.Scanner;
 public class GameManager {
 
   private final Ally[] allyParty;
-  private Enemy currentFoe;
-  private int day;
   private final CommandHandler commandHandler;
   private final Billion richarchDailyGains = new Billion(10);
   private final Scanner scanner;
+  private Enemy currentFoe;
+  private int day;
   private double allyHappiness = 0;
-  private ArrayList<DamageType> boostedDamage;
+  private final ArrayList<DamageType> boostedDamage;
 
   public GameManager() {
     scanner = new Scanner(System.in);
@@ -38,6 +38,33 @@ public class GameManager {
     Billion richarchStartCash = new Billion(4);
     allyParty[0] = new Richarch(richarchStartCash, this);
     boostedDamage = new ArrayList<>();
+  }
+
+  public static double numHelper(double num) {
+    Random rand = new Random();
+    num = num * rand.nextDouble(.95, 1.05);
+    return round(num);
+  }
+
+  public static double round(double num) {
+    Random rand = new Random();
+    BigDecimal bd = new BigDecimal(Double.toString(num));
+    bd = bd.setScale(2, RoundingMode.HALF_UP);
+    return bd.doubleValue();
+  }
+
+  public static Billion round(Billion num) {
+    return new Billion(round(num.getCash()));
+  }
+
+  public static String getUserInWithQuit() throws MoveQuitOrFailed {
+    Scanner scanner = new Scanner(System.in);
+    String userAnswer = scanner.nextLine();
+    if (userAnswer.equalsIgnoreCase("q") || userAnswer.equalsIgnoreCase("quit")) {
+      System.out.println("\nQuitting current action\n");
+      throw new MoveQuitOrFailed("Quit or q was typed");
+    }
+    return userAnswer;
   }
 
   private Enemy GetFoeAtDay(int day) {
@@ -65,7 +92,7 @@ public class GameManager {
     currentFoe = GetFoeAtDay(day);
     allyParty[0].adjustMoney(richarchDailyGains);
 
-    System.out.println("The Battle Begins! ");
+    System.out.println("The Battle Begins! On Day " + day + " your opponent is " + currentFoe);
     int currentPartMember = 0;
     while (currentFoe.isAlive()) {
       String currentAction = "";
@@ -112,7 +139,6 @@ public class GameManager {
     return userinput;
   }
 
-
   public Ally getAllyAt(int pos) {
     return allyParty[pos - 1];
   }
@@ -121,29 +147,11 @@ public class GameManager {
     return allyHappiness;
   }
 
-  public static double numHelper(double num) {
-    Random rand = new Random();
-    num = num * rand.nextDouble(.95, 1.05);
-    return round(num);
-  }
-
-  public static double round(double num) {
-    Random rand = new Random();
-    BigDecimal bd = new BigDecimal(Double.toString(num));
-    bd = bd.setScale(2, RoundingMode.HALF_UP);
-    return bd.doubleValue();
-  }
-
-  public static Billion round(Billion num) {
-    return new Billion(round(num.getCash()));
-  }
-
   public void dismissAlly(Ally ally) {
     double happinessCalc = 0;
     for (int i = 0; i < allyParty.length; i++) {
       if (ally == allyParty[i]) {
-        happinessCalc =
-            (ally.currentMoney().getCash() / ally.maxCash().getCash()) * 4 - 2;
+        happinessCalc = (ally.currentMoney().getCash() / ally.maxCash().getCash()) * 4 - 2;
         System.out.println(
             ally.getType() + " was dismissed and gave a happiness rating of " + happinessCalc
                 + " on a scale of -2 to 2");
@@ -183,7 +191,6 @@ public class GameManager {
     }
     return count;
   }
-
 
   public Enemy getCurrentEnemy() {
     return currentFoe;
@@ -226,16 +233,6 @@ public class GameManager {
     }
   }
 
-  public static String getUserInWithQuit() throws MoveQuitOrFailed {
-    Scanner scanner = new Scanner(System.in);
-    String userAnswer = scanner.nextLine();
-    if (userAnswer.equalsIgnoreCase("q") || userAnswer.equalsIgnoreCase("quit")) {
-      System.out.println("\nQuitting current action\n");
-      throw new MoveQuitOrFailed("Quit or q was typed");
-    }
-    return userAnswer;
-  }
-
   public int countFinancialAdvisors() {
     Ally[] allies = fetchAllyParty();
     int advisors = 0;
@@ -266,8 +263,10 @@ public class GameManager {
     if (boostedDamage.contains(type)) {
       currentAmount *= 2;
     }
-
-    currentFoe.adjustSanity(-currentAmount, type);
+    currentAmount = (int) numHelper(currentAmount * -1.0);
+    currentFoe.adjustSanity(currentAmount, type);
+    System.out.println(
+        -currentAmount + " (" + type + ") damage was dealt to " + currentFoe.getName());
   }
 
   //Text blocks beyond this point!!
