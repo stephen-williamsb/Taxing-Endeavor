@@ -222,6 +222,7 @@ public class GameManager {
               + allyParty[i].currentMoney());
     }
     System.out.println(currentFoe);
+    System.out.println("Current word of mouth: " + allyHappiness);
     System.out.println();
   }
 
