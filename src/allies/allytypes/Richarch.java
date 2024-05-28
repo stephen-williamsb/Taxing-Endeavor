@@ -1,18 +1,16 @@
 package allies.allytypes;
 
-import static gameManagement.GameManager.getUserInWithQuit;
-
 import allies.Ally;
 import allies.AllyClass;
 import allies.actions.Action;
 import allies.actions.PayRaise;
+import allies.actions.SummonAlly;
 import gameManagement.Billion;
 import gameManagement.DamageType;
 import gameManagement.GameManager;
 import gameManagement.MoveQuitOrFailed;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 import java.util.Scanner;
 
 public class Richarch implements Ally {
@@ -20,7 +18,7 @@ public class Richarch implements Ally {
   private final GameManager manager;
   Scanner scanner;
   private final Billion cashOnHand;
-  private List<Action> actions;
+  private final List<Action> actions;
 
   public Richarch(Billion startCash, GameManager manager) {
     cashOnHand = startCash;
@@ -28,6 +26,7 @@ public class Richarch implements Ally {
     scanner = new Scanner(System.in);
     actions = new ArrayList<>();
     actions.add(new PayRaise());
+    actions.add(new SummonAlly());
   }
 
   @Override
@@ -35,7 +34,7 @@ public class Richarch implements Ally {
     System.out.println("It is now Richarch's Turn! You have " + cashOnHand + " cash on hand. You"
         + " can do the following:");
     for (int i = 0; i < actions.size(); i++) {
-      System.out.println("[" + i + "]: " + actions.get(i).getName());
+      System.out.println("[" + (i + 1) + "]: " + actions.get(i).getName());
     }
     System.out.println("To select a move type the name of the move: ");
   }
@@ -80,69 +79,5 @@ public class Richarch implements Ally {
   @Override
   public AllyClass getAllyType() {
     return AllyClass.Richarch;
-  }
-
-
-  private void checkForQuit(String input) throws MoveQuitOrFailed {
-
-  }
-
-  //Move set
-
-  private void handlePayRaise() throws MoveQuitOrFailed {
-
-  }
-
-
-  private void handleSummonAlly() throws MoveQuitOrFailed {
-    if (manager.allyCount() == 4) {
-      System.out.println("Party is full!");
-
-      return;
-    }
-    Random rand = new Random();
-    String userAnswer = "";
-
-    //Calculate rerolls
-    int rerolls = 1 + manager.countFinancialAdvisors();
-    AllyClass summonedAlly = null;
-    while (summonedAlly == null) {
-      System.out.println("""
-          Input the number of the ally you would like to summon.
-           [1]Son
-           [2]Lawyer
-           [3]Secretary
-           [4]Advisor
-           \s""");
-      userAnswer = getUserInWithQuit();
-
-      summonedAlly = switch (Integer.parseInt(userAnswer)) {
-        case 1 -> AllyClass.Son;
-        case 2 -> AllyClass.Lawyer;
-        case 3 -> AllyClass.Secretary;
-        case 4 -> AllyClass.Advisor;
-        default -> null;
-      };
-    }
-
-    //Handle cost
-    double hireCost = 0;
-    while (rerolls >= 0) {
-      hireCost = (rand.nextInt(10) + 10.0) / 10.0;
-      System.out.println(
-          summonedAlly + " wants to be hired for $" + hireCost + ". You have " + rerolls
-              + " rerolls left, type 'reroll' to reroll. Type 'accept' to hire.");
-      userAnswer = scanner.nextLine();
-      if (userAnswer.equalsIgnoreCase("accept")) {
-        break;
-      }
-      rerolls--;
-    }
-    if (cashOnHand.getCash() - hireCost < 0) {
-      System.out.println("insufficient payment");
-      return;
-    }
-    cashOnHand.sub(hireCost);
-    manager.createAlly(summonedAlly, new Billion(hireCost));
   }
 }

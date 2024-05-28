@@ -4,7 +4,6 @@ import static gameManagement.GameManager.getUserInWithQuit;
 
 import allies.Ally;
 import allies.AllyClass;
-import enemies.Enemy;
 import gameManagement.Billion;
 import gameManagement.GameManager;
 import gameManagement.MoveQuitOrFailed;
@@ -12,6 +11,7 @@ import gameManagement.MoveQuitOrFailed;
 public class PayRaise implements Action {
 
   private Ally target;
+
   @Override
   public String getName() {
     return "Pay Raise";
@@ -35,7 +35,7 @@ public class PayRaise implements Action {
         System.out.println("Cannot choose self");
       }
     }
-    System.out.println("How much money? : ");
+    System.out.println("How much money? Keep in mind Richarch handles cash in billions: ");
     userAnswer = getUserInWithQuit();
     int amountTransfered = Integer.parseInt(userAnswer);
     while (self.currentMoney().getCash() - amountTransfered < 0 || amountTransfered < 0) {
