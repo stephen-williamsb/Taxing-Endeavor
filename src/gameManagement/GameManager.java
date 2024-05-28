@@ -8,6 +8,8 @@ import allies.allytypes.Richarch;
 import allies.allytypes.Secretary;
 import allies.allytypes.Son;
 import enemies.DayOneEnemy;
+import enemies.DayThreeEnemy;
+import enemies.DayTwoEnemy;
 import enemies.Enemy;
 import gameManagement.commands.CommandHandler;
 import java.math.BigDecimal;
@@ -41,8 +43,8 @@ public class GameManager {
   private Enemy GetFoeAtDay(int day) {
     return switch (day) {
       case 1 -> new DayOneEnemy(this);
-      case 2 -> null;
-      case 3 -> null;
+      case 2 -> new DayTwoEnemy(this);
+      case 3 -> new DayThreeEnemy(this);
       default -> null;
     };
   }
