@@ -39,4 +39,6 @@ public interface Enemy {
   boolean isAlive();
 
   void forcetarget(Ally target);
+
+  int getSanity();
 }

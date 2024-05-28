@@ -67,7 +67,7 @@ public class GameManager {
     int currentPartMember = 0;
     while (currentFoe.isAlive()) {
       String currentAction = "";
-      if (allyParty[currentPartMember] == null || currentPartMember == 4) {
+      if (currentPartMember == 4 || allyParty[currentPartMember] == null) {
         currentFoe.act();
         currentPartMember = 0;
         printPartyCheck();
@@ -212,6 +212,7 @@ public class GameManager {
           "[" + (i + 1) + "]: " + allyParty[i].getType() + "   |   Current " + "cash: "
               + allyParty[i].currentMoney());
     }
+    System.out.println(currentFoe);
     System.out.println();
   }
 
@@ -264,7 +265,7 @@ public class GameManager {
       currentAmount *= 2;
     }
 
-    currentFoe.adjustSanity(currentAmount, type);
+    currentFoe.adjustSanity(-currentAmount, type);
   }
 
   //Text blocks beyond this point!!

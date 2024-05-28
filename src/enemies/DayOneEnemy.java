@@ -23,7 +23,7 @@ public class DayOneEnemy implements Enemy {
   private Billion currentDamage;
   private int damageTaken;
   private Ally target;
-
+  private final double damageReduction = 0.00006;
 
   public DayOneEnemy(GameManager manager) {
     determineRandomTyping();
@@ -50,7 +50,7 @@ public class DayOneEnemy implements Enemy {
       target = allyParty[rand.nextInt(1, manager.allyCount())];
     }
 
-    currentDamage.add(new Billion(damageTaken * 0.006));
+    currentDamage.add(new Billion(damageTaken * 0.0006));
     currentDamage = round(currentDamage);
     System.out.println(
         name + " wanted to take .6 billion, but due to your arguments this turn, they only took "
@@ -114,5 +114,15 @@ public class DayOneEnemy implements Enemy {
 
   public void forcetarget(Ally target) {
     this.target = target;
+  }
+
+  @Override
+  public int getSanity() {
+    return sanity;
+  }
+
+  @Override
+  public String toString() {
+    return name + ", moral: " + getSanity();
   }
 }
