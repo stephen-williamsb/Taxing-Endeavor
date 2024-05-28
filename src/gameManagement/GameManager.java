@@ -49,6 +49,11 @@ public class GameManager {
     firstDayText();
     startDay(day);
     day++;
+    startDay(day);
+    day++;
+    startDay(day);
+    System.out.println("Congrats! You beat the game! Richarch will stay rich and was left with "
+        + allyParty[0].currentMoney() + " in his wallet!");
   }
 
   public void startDay(int day) {
@@ -58,17 +63,22 @@ public class GameManager {
     System.out.println("The Battle Begins! ");
     int currentPartMember = 0;
     while (currentFoe.isAlive()) {
-      if (allyParty[currentPartMember] == null || currentPartMember == 5) {
+      String currentAction = "";
+      if (allyParty[currentPartMember] == null || currentPartMember == 4) {
         currentFoe.act();
         currentPartMember = 0;
         continue;
       }
       try {
         allyParty[currentPartMember].intro();
-        allyParty[currentPartMember].actions(handleInput());
+        currentAction = handleInput();
+        allyParty[currentPartMember].actions(currentAction);
         printPartyCheck();
         currentPartMember++;
       } catch (MoveQuitOrFailed ignored) {
+        if (currentAction.equalsIgnoreCase("skip")) {
+          currentPartMember++;
+        }
       }
     }
   }
@@ -314,7 +324,7 @@ public class GameManager {
     System.out.println("""
         Richarch has a king of the hill mentality, so any money extorted by the agent comes straight from a random ally’s pay. Whoopsie! Make sure an ally doesn't lose all their money, because if they do, they will leave and give bad word of mouth to future allies.\s
 
-        For more info, type /info.
+        For more info, type /info. If you would like to skip a turn type 'skip' and if you would like to quit a turn type 'q' or 'quit'.
         """);
 
   }
