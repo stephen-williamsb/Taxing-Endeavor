@@ -132,6 +132,10 @@ public class GameManager {
     return bd.doubleValue();
   }
 
+  public static Billion round(Billion num) {
+    return new Billion(round(num.getCash()));
+  }
+
   public void dismissAlly(Ally ally) {
     double happinessCalc = 0;
     for (int i = 0; i < allyParty.length; i++) {
@@ -208,6 +212,7 @@ public class GameManager {
           "[" + (i + 1) + "]: " + allyParty[i].getType() + "   |   Current " + "cash: "
               + allyParty[i].currentMoney());
     }
+    System.out.println();
   }
 
   private void pressEnterToContinue() {

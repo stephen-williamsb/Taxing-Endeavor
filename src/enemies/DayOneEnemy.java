@@ -1,5 +1,7 @@
 package enemies;
 
+import static gameManagement.GameManager.round;
+
 import allies.Ally;
 import gameManagement.Billion;
 import gameManagement.DamageType;
@@ -44,7 +46,8 @@ public class DayOneEnemy implements Enemy {
       target = allyParty[rand.nextInt(1, manager.allyCount())];
     }
 
-    currentDamage.add(new Billion(damageTaken * 0.0006));
+    currentDamage.add(new Billion(damageTaken * 0.006));
+    currentDamage = round(currentDamage);
     System.out.println(
         name + " wanted to take .6 billion, but due to your arguments this turn, they only took "
             + currentDamage + " from " + target.getType() + "!");
