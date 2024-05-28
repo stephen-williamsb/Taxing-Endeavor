@@ -25,10 +25,10 @@ public class GameManager {
   private final CommandHandler commandHandler;
   private final Billion richarchDailyGains = new Billion(10);
   private final Scanner scanner;
+  private final ArrayList<DamageType> boostedDamage;
   private Enemy currentFoe;
   private int day;
   private double allyHappiness = 0;
-  private final ArrayList<DamageType> boostedDamage;
 
   public GameManager() {
     scanner = new Scanner(System.in);

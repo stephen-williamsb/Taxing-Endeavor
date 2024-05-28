@@ -14,17 +14,17 @@ public abstract class EnemyTemplate implements Enemy {
   private final String name;
   private final DamageType[] damageList = {DamageType.Logic, DamageType.Emotional,
       DamageType.Blackmail};
+  private final Billion defaultDamage;
+  private final double damageReduction;
   private int sanity;
   //when this hit 4 the weakness and strength is randomized.
   private int turnsTillSwap;
   private int defaultTurnsTillSwap;
   private DamageType strongAgainst;
   private DamageType weakAgainst;
-  private final Billion defaultDamage;
   private Billion currentDamage;
   private int damageTaken;
   private Ally target;
-  private final double damageReduction;
 
   public EnemyTemplate(GameManager manager, String name, int sanity, int turnsTillSwap,
       Billion defaultDamage, double damageReduction) {
