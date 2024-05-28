@@ -3,6 +3,7 @@ package allies.allytypes;
 import allies.Ally;
 import allies.AllyClass;
 import allies.actions.Action;
+import allies.actions.Discharge;
 import allies.actions.PayRaise;
 import allies.actions.SummonAlly;
 import gameManagement.Billion;
@@ -27,6 +28,7 @@ public class Richarch implements Ally {
     actions = new ArrayList<>();
     actions.add(new PayRaise());
     actions.add(new SummonAlly());
+    actions.add(new Discharge());
   }
 
   @Override
@@ -51,7 +53,7 @@ public class Richarch implements Ally {
       if (action.getName().equalsIgnoreCase(actionName)
           || actions.indexOf(action) == actionNameAsNum) {
         action.act(manager, this);
-        action.getFlavorText(this);
+        System.out.println(action.getFlavorText(this));
         return;
       }
     }

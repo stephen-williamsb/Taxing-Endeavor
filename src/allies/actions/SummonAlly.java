@@ -48,14 +48,17 @@ public class SummonAlly implements Action {
            [4]Advisor
            \s""");
       userAnswer = getUserInWithQuit();
+      try {
+        summonedAlly = switch (Integer.parseInt(userAnswer)) {
+          case 1 -> AllyClass.Son;
+          case 2 -> AllyClass.Lawyer;
+          case 3 -> AllyClass.Secretary;
+          case 4 -> AllyClass.Advisor;
+          default -> null;
+        };
+      } catch (NumberFormatException ignored) {
 
-      summonedAlly = switch (Integer.parseInt(userAnswer)) {
-        case 1 -> AllyClass.Son;
-        case 2 -> AllyClass.Lawyer;
-        case 3 -> AllyClass.Secretary;
-        case 4 -> AllyClass.Advisor;
-        default -> null;
-      };
+      }
     }
 
     //Handle cost

@@ -35,6 +35,11 @@ public class Secretary implements Ally {
   }
 
   @Override
+  public Billion maxCash() {
+    return null;
+  }
+
+  @Override
   public DamageType getDamageType() {
     return null;
   }

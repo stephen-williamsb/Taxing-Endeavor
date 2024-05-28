@@ -8,15 +8,18 @@ import gameManagement.MoveQuitOrFailed;
 
 public class Advisor implements Ally {
 
-  public Advisor(Billion startCash) {
+  final Billion maxCash;
+  Billion currentCash;
 
+  public Advisor(Billion startCash) {
+    maxCash = startCash;
+    currentCash = maxCash;
   }
 
   @Override
   public void intro() {
 
   }
-
 
 
   @Override
@@ -31,7 +34,12 @@ public class Advisor implements Ally {
 
   @Override
   public Billion currentMoney() {
-    return new Billion(0);
+    return currentCash;
+  }
+
+  @Override
+  public Billion maxCash() {
+    return maxCash;
   }
 
   @Override

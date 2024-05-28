@@ -119,9 +119,12 @@ public class GameManager {
     double happinessCalc = 0;
     for (int i = 0; i < allyParty.length; i++) {
       if (ally == allyParty[i]) {
-        happinessCalc = (ally.maxCash().getCash() / 2) - ally.currentMoney().getCash() * -2;
-        System.out.println(ally + " was dismissed and gave a happiness rating of " + happinessCalc
-            + " on a scale of -2 to 2");
+        happinessCalc =
+            ((ally.maxCash().getCash() / 2) - ally.currentMoney().getCash()) / ally.maxCash()
+                .getCash() * -4;
+        System.out.println(
+            ally.getAllyType() + " was dismissed and gave a happiness rating of " + happinessCalc
+                + " on a scale of -2 to 2");
         allyHappiness += happinessCalc;
         //clear slot
         allyParty[i] = null;

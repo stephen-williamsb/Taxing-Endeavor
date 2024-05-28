@@ -34,6 +34,11 @@ public class Son implements Ally {
   }
 
   @Override
+  public Billion maxCash() {
+    return null;
+  }
+
+  @Override
   public DamageType getDamageType() {
     return null;
   }

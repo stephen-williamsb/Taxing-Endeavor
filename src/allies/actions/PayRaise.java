@@ -36,18 +36,12 @@ public class PayRaise implements Action {
       }
     }
     System.out.println(
-        currentAlly + " will be payed half their max pay which is " + currentAlly.maxCash()
-            + " billion. Excess "
+        currentAlly.getAllyType() + " will be payed half their max pay which is "
+            + currentAlly.maxCash().getCash() / 2
+            + " . Excess "
             + "will be lost. Type q or quit to stop any other keys will accept the payment.");
-    userAnswer = getUserInWithQuit();
+    getUserInWithQuit();
     double amountTransfered = (currentAlly.maxCash().getCash() / 2);
-    while (self.currentMoney().getCash() - amountTransfered < 0 || amountTransfered < 0) {
-      System.out.println("Invalid amount. How much money? : ");
-      userAnswer = getUserInWithQuit();
-      amountTransfered = Integer.parseInt(userAnswer);
-    }
-    self.currentMoney().sub(amountTransfered);
-    amountTransfered = (amountTransfered * (.75 + (.15 * manager.countFinancialAdvisors())));
     target = currentAlly;
     currentAlly.adjustMoney(new Billion(amountTransfered));
   }
